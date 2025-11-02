@@ -3,4 +3,4 @@ const router = express.Router();
 const itemController = require("../controllers/itemController.js");
 
 
-router.get("/category:id/items", itemController.getItems);
+// router.get("/category:id/items", itemController.getItems);
