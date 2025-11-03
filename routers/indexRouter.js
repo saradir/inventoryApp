@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const categoryController = require("../controllers/categoryController.js");
-const itemRouter = require("./itemRouter.js");
+const indexController = require("../controllers/indexController.js");
 
-router.get('/categories', categoryController.getCategories);
-// router.use('categories/:id/items', itemRouter);
+
+router.get('/', indexController.getIndex);
+
 
 module.exports = router;

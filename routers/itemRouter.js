@@ -2,5 +2,6 @@ const express = require('express');
 const router = express.Router();
 const itemController = require("../controllers/itemController.js");
 
+module.exports = router;
 
-// router.get("/category:id/items", itemController.getItems);
+

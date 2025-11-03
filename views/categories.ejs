@@ -6,10 +6,12 @@
     <title><%= title %></title>
 </head>
 <body>
-    <div class="menu">
-        <a href="/categories">Categories</a>
-        <a href="/brands">Brands</a>
-        <a href="/items">Items</a>
+    <div class="categories">
+               <% categories.forEach((category =>{ %>
+            <div id="<%= category.id %>">
+                <%= category.name %>
+            </div>
+        <% })) %>
     </div>
     
 </body>
