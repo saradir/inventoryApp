@@ -20,6 +20,13 @@ const SQL = `
     brand_id INTEGER REFERENCES brands(id),
     quantity INTEGER
     );
+
+    CREATE TABLE IF NOT EXISTS brand_categories (
+    brand_id INTEGER REFERENCES brands(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (brand_id, category_id)
+    );
+
 `;
 
 async function main(){

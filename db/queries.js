@@ -13,9 +13,17 @@ async function getCategories(){
     }
 }
 
+// pulls items along with brand and category name
 async function getItemsByCategory(categoryId){
     try{
-        const { rows } = await pool.query("SELECT * FROM items WHERE category = $1",[categoryId]);
+        const { rows } = await pool.query(
+        `SELECT i.*, b.name AS brand_name, c.name AS category_name
+        FROM items i
+        LEFT JOIN brands b ON i.brand_id = b.id
+        JOIN categories c ON i.category_id = c.id
+        WHERE c.id = $1;`,
+        [categoryId]
+    );
         if (rows.length === 0){
             return null;
         }
@@ -26,7 +34,29 @@ async function getItemsByCategory(categoryId){
     }
 }
 
+async function getBrandsByCategory(categoryId){
+    try{
+        const { rows } = await pool.query(
+            `SELECT b.*, c.name AS category_name
+            FROM brands b
+            JOIN brand_categories bc ON b.id = bc.brand_id
+            JOIN categories c ON bc.category_id = c.id
+            WHERE c.id = $1;
+            `,[categoryId]
+        );
+        if (rows.length === 0){
+        return null;
+        }
+        return rows;
+    } catch (error){
+        console.error("Database error:", error);
+        return null;
+    }
+
+}
+
 module.exports = {
     getCategories,
     getItemsByCategory,
+    getBrandsByCategory
 }
