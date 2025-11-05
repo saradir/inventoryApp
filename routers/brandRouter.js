@@ -3,6 +3,7 @@ const router = express.Router();
 const brandController = require("../controllers/brandController.js");
 
 
-//router.get("/", brandController );
+router.get("/", brandController.getBrands);
+router
 
 module.exports = router;

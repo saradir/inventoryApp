@@ -55,8 +55,18 @@ async function getBrandsByCategory(categoryId){
 
 }
 
+async function createCategory(category){
+    const result =  await pool.query(
+        `INSERT INTO categories (name)
+        VALUES ($1)`,[category]);
+
+    return result;
+}
+
 module.exports = {
     getCategories,
     getItemsByCategory,
-    getBrandsByCategory
+    getBrandsByCategory,
+    createCategory
+
 }
