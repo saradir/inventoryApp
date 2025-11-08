@@ -7,11 +7,11 @@
 </head>
 <body>
     <div class="categories">
-               <% categories.forEach((category =>{ %>
+               <% categories.forEach((category) =>{ %>
             <div id="<%= category.id %>">
                 <%= category.name %>
             </div>
-        <% })) %>
+        <% }) %>
     </div>
 
     <a href="/categories/new">New Category</a>

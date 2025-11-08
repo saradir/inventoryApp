@@ -4,6 +4,7 @@ const brandController = require("../controllers/brandController.js");
 
 
 router.get("/", brandController.getBrands);
-router
+router.get("/new", brandController.createBrandGET);
+router.post("/new", brandController.createBrandPOST);
 
 module.exports = router;
