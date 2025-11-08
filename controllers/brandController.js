@@ -1,4 +1,4 @@
-const db = require('../db/queries');
+const db = require('../db/brandQueries');
 
 
 async function getBrands(req, res){
