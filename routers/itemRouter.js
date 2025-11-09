@@ -3,10 +3,10 @@ const router = express.Router();
 const itemController = require("../controllers/itemController.js");
 
 
-//router.get("/", itemController.getItems);
-//router.get("/items/new", itemController.createItemGET);
-//router.post("/items/new", itemController.createItemPOST);
-//router.get("/items/:itemId", itemController.getItem);
+router.get("/", itemController.getItems);
+router.get("/new", itemController.createItemGET);
+router.post("/new", itemController.createItemPOST);
+router.get("/:itemId", itemController.getItem);
 
 
 

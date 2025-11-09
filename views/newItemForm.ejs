@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h2><%= title %></h2>
+
+    <form action="/items/new" method="post">
+        <label for="item">Item Name: </label>
+        <input type="text" id="item" name="item">
+
+        <label for="category">Category: </label>
+        <select id="category" name="category_id" required>
+            <option value="">Select a category</option>
+            <% categories.forEach((category) => { %>
+               <option value="<%= category.id %>"><%= category.name %></option> 
+           <% }) %>
+        </select>
+
+        <label for="brand">Brand: </label>
+        <select id="brand" name="brand_id" required>
+            <option value="">Select a brand</option>
+            <% brands.forEach((brand) => { %>
+               <option value="<%= brand.id %>"><%= brand.name %></option> 
+           <% }) %>
+        </select>
+
+        <button type="submit">Add Item</button>
+    </form>
+</body>
+</html>

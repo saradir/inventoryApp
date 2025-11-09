@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=title %></title>
+
+</head>
+<body>
+    <div class="items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% if(items)  { %>
+                        <% items.forEach((item) => { %>
+                        <tr>
+                            <td><%=item.id %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.category_name %></td>
+                            <td><%= item.brand_name %></td>
+                        </tr>
+                        <% })} %>
+                </tbody>
+            </table>
+            
+            <a href="/items/new">Add New Item</a>
+    </div>
+</body>
+</html>
