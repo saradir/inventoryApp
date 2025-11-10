@@ -11,6 +11,21 @@ async function getBrands(){
     }
 }
 
+async function getBrand(brandId){
+  try{
+    const { rows } = await pool.query(
+      `SELECT * FROM brands
+      WHERE id= $1`,
+      [brandId]
+    );
+    if(rows.length === 0) return null;
+    return rows[0];
+  }catch (error) {
+        console.log("Database Error:", error);
+        return null;
+    }
+}
+
 async function createBrand(brand){
     const result = await pool.query(
         `INSERT INTO brands (name)
@@ -60,5 +75,6 @@ module.exports = {
     getBrands,
     createBrand, 
     updateBrand,
-    deleteBrand
+    deleteBrand,
+    getBrand
 }

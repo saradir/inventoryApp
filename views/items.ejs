@@ -17,6 +17,8 @@
                         <th>Brand</th>
                         <th>Quantity</th>
                         <th>Price</th>
+                        <th> </th>
+                        <th> </th>
                     </tr>
                 </thead>
 
@@ -28,6 +30,11 @@
                             <td><%= item.name %></td>
                             <td><%= item.category_name %></td>
                             <td><%= item.brand_name %></td>
+                            <td><%= item.quanity || '' %></td>
+                            <td><%= item.price || '' %></td>
+                            <td><a href='items/<%= item.id %>/edit/'>Edit</a></td>
+                            <td><a href='items/<%= item.id %>/delete/'>Delete</a></td>
+
                         </tr>
                         <% })} %>
                 </tbody>

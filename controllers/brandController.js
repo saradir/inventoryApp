@@ -22,22 +22,30 @@ async function createBrandPOST(req, res){
         if(result.rowCount <= 0){
             throw new Error('Error: No Brand Created');
         }
-        res.redirect('/brands');
+        res.redirect('/brands/');
     } catch (error){
         console.log(`Server Error:`, error);
     }
 }
 
 async function updateBrandGET(req, res){
-    return true;
+    const brand = await db.getBrand(req.params.id);
+    res.render('updateBrandForm', {title: 'Edit Brand', brand });
 }
 
 async function updateBrandPOST(req, res){
-    return true;
+    try{
+        const result = await db.updateBrand(req.params.id, req.body.name);
+        if(!result) throw new Error('Update Operation Failed');
+        res.redirect('/brands/');
+    } catch (error){
+        console.log(`Server Error:`, error);
+    }
 }
 
 async function deleteBrand(req, res){
-    return true;
+    await db.deleteBrand(req.params.id);
+    res.redirect('/brands');    
 }
 
 module.exports = {

@@ -10,11 +10,24 @@
                <% categories.forEach((category) =>{ %>
             <div id="<%= category.id %>">
                 <%= category.name %>
+                <a href='categories/<%= category.id %>/edit/'>Edit</a>
+                <a href="#" onclick="confirmDelete('<%= category.id %>', '<%= category.name %>')">Delete</a>
             </div>
         <% }) %>
     </div>
 
     <a href="/categories/new">New Category</a>
-    
+   
+<form id="deleteForm" method="post" style="display:none;"></form>
+
+<script>
+    function confirmDelete(id, name) {
+    if (confirm(`Are you sure you want to delete this category (${name})?`)) {
+        const form = document.getElementById('deleteForm');
+        form.action = `/category/${id}/delete`;
+        form.submit();
+    }
+    }
+</script>
 </body>
 </html>

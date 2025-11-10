@@ -10,11 +10,25 @@
         <% brands.forEach((brand) => { %>
             <div id="<%= brand.id %>">
                 <%= brand.name %>
+                <a href='/brands/<%= brand.id %>/edit/'>Edit</a>
+                <a href="#" onclick="confirmDelete('<%= brand.id %>', '<%= brand.name %>')">Delete</a>
+
             </div>
             <% }) %>
     </div>
         
     <a href="/brands/new/">Add New Brand</a>
-    
+
+<form id="deleteForm" method="post" style="display:none;"></form>
+
+<script>
+    function confirmDelete(id, name) {
+    if (confirm(`Are you sure you want to delete this brand (${name})?`)) {
+        const form = document.getElementById('deleteForm');
+        form.action = `/brands/${id}/delete`;
+        form.submit();
+    }
+    }
+</script>
 </body>
 </html>
