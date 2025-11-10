@@ -46,11 +46,26 @@ async function getItem(req,res){
     })
 }
 
+
+async function updateItemGET(req, res){
+    return true;
+}
+
+async function updateItemPOST(req, res){
+    return true;
+}
+
+async function deleteItem(req, res){
+    return true;
+}
+
 module.exports = {
     getItemsByCategory,
     getItems,
     createItemGET,
     createItemPOST,
-    getItem
-
+    getItem,
+    updateItemGET,
+    updateItemPOST,
+    deleteItem
 }

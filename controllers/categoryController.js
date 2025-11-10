@@ -26,12 +26,24 @@ async function createCategoryGET(req, res){
     res.render('newCategoryForm', {title: 'Add Category'});
 }
 
+async function updateCategoryGET(req, res){
+    return true;
+}
 
+async function updateCategoryPOST(req, res){
+    return true;
+}
+
+async function deleteCategory(req, res){
+    return true;
+}
 
 module.exports = {
     getCategories,
     createCategoryPOST,
     createCategoryGET,
-    
+    updateCategoryGET,
+    updateCategoryPOST,
+    deleteCategory  
 
 }

@@ -28,8 +28,23 @@ async function createBrandPOST(req, res){
     }
 }
 
+async function updateBrandGET(req, res){
+    return true;
+}
+
+async function updateBrandPOST(req, res){
+    return true;
+}
+
+async function deleteBrand(req, res){
+    return true;
+}
+
 module.exports = {
     getBrands,
     createBrandGET,
-    createBrandPOST
+    createBrandPOST,
+    updateBrandGET,
+    updateBrandPOST,
+    deleteBrand
 }

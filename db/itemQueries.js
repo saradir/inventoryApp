@@ -35,9 +35,51 @@ async function getItem(itemId){
     return result;
 }
 
+async function deleteItem(id){
+    try{
+        const { rows } = await pool.query(
+            `DELETE FROM items
+            WHERE id = $1
+            RETURNING *;`,
+            [id]
+        );
+        return rows[0] || null;
+    } catch (error){
+            console.error("Database error in deleteItem:", error);
+            throw error;
+    }
+}
+
+async function updateItem(itemId, itemData) {
+  try {
+    // Get object keys and values, ignoring undefined fields
+    const entries = Object.entries(itemData).filter(([_, v]) => v !== undefined);
+
+    // Build dynamic SQL placeholders: $2, $3, ...
+    const setClauses = entries.map(([key], i) => `${key} = $${i + 2}`).join(", ");
+
+    const values = [itemId, ...entries.map(([_, value]) => value)];
+
+    const { rows } = await pool.query(
+      `UPDATE items
+       SET ${setClauses}
+       WHERE id = $1
+       RETURNING *;`,
+      values
+    );
+
+    return rows[0] || null;
+  } catch (error) {
+    console.error("Database error in updateItem:", error);
+    throw error;
+  }
+}
+
+
 module.exports = {
     getItems,
     createItem,
-    getItem
-
+    getItem,
+    deleteItem,
+    updateItem
 }
