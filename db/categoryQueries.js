@@ -13,6 +13,23 @@ async function getCategories(){
     }
 }
 
+async function getCategory(categoryId){
+        try{
+    const { rows } = await pool.query(
+        `SELECT * FROM categories
+        WHERE id = $1;`,
+        [categoryId]
+    );
+        if(rows.length === 0){
+        return null;
+    }
+    return rows[0];
+    } catch (error) {
+           console.error("Database error:", error);
+           return null;
+    }
+}
+
 // pulls items along with category and category name
 async function getItemsByCategory(categoryId){
     try{
@@ -106,6 +123,7 @@ module.exports = {
     getCategories,
     createCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategory
     
 }

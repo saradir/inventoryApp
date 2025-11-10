@@ -27,15 +27,23 @@ async function createCategoryGET(req, res){
 }
 
 async function updateCategoryGET(req, res){
-    return true;
+        const category = await db.getCategory(req.params.id);
+        res.render('updateCategoryForm', {title: 'Edit Category', category });
 }
 
 async function updateCategoryPOST(req, res){
-    return true;
+        try{
+            const result = await db.updateCategory(req.params.id, req.body.name);
+            if(!result) throw new Error('Update Operation Failed');
+            res.redirect('/categories/');
+        } catch (error){
+            console.log(`Server Error:`, error);
+        }
 }
 
 async function deleteCategory(req, res){
-    return true;
+       await db.deleteCategory(req.params.id);
+       res.redirect('/categories');    
 }
 
 module.exports = {
