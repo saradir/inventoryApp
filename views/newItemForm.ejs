@@ -21,6 +21,13 @@
                    <option value="<%= brand.id %>"><%= brand.name %></option>
                <% }) %>
             </select>
+
+            <label for="quantity">Quantity: </label>
+            <input type="number" id="quantity" name="quantity" min="0">
+
+            <label for="price">Price: </label>
+            <input type="number" id="price" name="price" min="0" step="any">
+
             <button type="submit">Add Item</button>
         </form>
     </div>

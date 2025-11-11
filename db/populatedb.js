@@ -3,6 +3,9 @@ require("dotenv").config();
 const { Client } = require("pg");
 
 const SQL = `
+
+DROP TABLE IF EXISTS items, brand_categories, categories, brands CASCADE;
+
 CREATE TABLE IF NOT EXISTS categories(
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   name TEXT UNIQUE NOT NULL
@@ -18,7 +21,8 @@ CREATE TABLE IF NOT EXISTS items(
   name TEXT UNIQUE NOT NULL,
   category_id INTEGER REFERENCES categories(id),
   brand_id INTEGER REFERENCES brands(id),
-  quantity INTEGER
+  quantity INTEGER,
+  price NUMERIC(10,2)
 );
 
 CREATE TABLE IF NOT EXISTS brand_categories(
@@ -54,20 +58,20 @@ INSERT INTO brands (name) VALUES
 ('Ibanez'),
 ('Selmer'),
 ('Boss'),
-('DAddario');  -- replaced fancy apostrophe
+('DAddario');
 
--- Items
-INSERT INTO items (name, category_id, brand_id, quantity) VALUES
-('Stratocaster Electric Guitar', 1, 1, 5),
-('Les Paul Standard', 1, 2, 3),
-('Precision Bass', 2, 1, 4),
-('Yamaha Stage Custom Drum Kit', 4, 3, 2),
-('Roland TD-27KV V-Drums', 4, 4, 1),
-('Korg Kronos Workstation', 3, 5, 2),
-('Ibanez RG550', 1, 7, 4),
-('Selmer Paris Alto Saxophone', 6, 8, 2),
-('Boss Katana 100 Amp', 9, 9, 6),
-('DAddario EXL110 Guitar Strings', 10, 10, 25);
+-- Items (now with prices)
+INSERT INTO items (name, category_id, brand_id, quantity, price) VALUES
+('Stratocaster Electric Guitar', 1, 1, 5, 1199.99),
+('Les Paul Standard', 1, 2, 3, 2499.00),
+('Precision Bass', 2, 1, 4, 1399.00),
+('Yamaha Stage Custom Drum Kit', 4, 3, 2, 999.50),
+('Roland TD-27KV V-Drums', 4, 4, 1, 2999.00),
+('Korg Kronos Workstation', 3, 5, 2, 3499.99),
+('Ibanez RG550', 1, 7, 4, 999.00),
+('Selmer Paris Alto Saxophone', 6, 8, 2, 4299.00),
+('Boss Katana 100 Amp', 9, 9, 6, 399.99),
+('DAddario EXL110 Guitar Strings', 10, 10, 25, 7.99);
 
 -- Brand-Category relationships
 INSERT INTO brand_categories (brand_id, category_id) VALUES
@@ -91,12 +95,12 @@ async function main() {
   });
 
   try {
-    console.log("Seeding database...");
+    console.log("🌱 Seeding database...");
     await client.connect();
     await client.query(SQL);
-    console.log("Done!");
+    console.log("✅ Done!");
   } catch (err) {
-    console.error("Error seeding database:", err);
+    console.error("❌ Error seeding database:", err);
   } finally {
     await client.end();
   }
