@@ -28,11 +28,11 @@ async function createItem(item, category, brand){
 }
 
 async function getItem(itemId){
-    const result = await pool.query(
+    const { rows } = await pool.query(
         `SELECT * FROM items
         WHERE id = $1`,[itemId]
     );
-    return result;
+    return rows[0];
 }
 
 async function deleteItem(id){
@@ -52,6 +52,7 @@ async function deleteItem(id){
 
 async function updateItem(itemId, itemData) {
   try {
+    console.log(itemData);
     // Get object keys and values, ignoring undefined fields
     const entries = Object.entries(itemData).filter(([_, v]) => v !== undefined);
 

@@ -48,15 +48,25 @@ async function getItem(req,res){
 
 
 async function updateItemGET(req, res){
-    return true;
+    const [categories, brands, item] = await Promise.all([getCategories(), getBrands(), db.getItem(req.params.id)]);
+    console.log(item);
+    res.render("updateItemForm", {title: "Edit Item", item, brands, categories})
 }
 
 async function updateItemPOST(req, res){
-    return true;
+    try{
+    const result = await db.updateItem(req.params.id, req.body);
+    if(!result) throw new Error('Update Operation Failed');
+    res.redirect('/items/');
+        } catch (error){
+            console.log(`Server Error:`, error);
+        }
 }
 
+
 async function deleteItem(req, res){
-    return true;
+    await db.deleteItem(req.params.id);
+    res.redirect('/items/');    
 }
 
 module.exports = {
