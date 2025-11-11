@@ -6,14 +6,32 @@
     <title><%= title %></title>
 </head>
 <body>
+    <%- include('partials/nav') %>
+
     <div class="categories">
-               <% categories.forEach((category) =>{ %>
-            <div id="<%= category.id %>">
-                <%= category.name %>
-                <a href='/categories/<%= category.id %>/edit/'>Edit</a>
-                <a href="#" onclick="confirmDelete('<%= category.id %>', '<%= category.name %>')">Delete</a>
-            </div>
-        <% }) %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% if(categories)  { %>
+                        <% categories.forEach((category) => { %>
+                        <tr>
+                            <td><%=category.id %></td>
+                            <td><%= category.name %></td>
+                            <td><a href='/categories/<%= category.id %>/edit/'>Edit</a> </td>
+                            <td><a href="#" onclick="confirmDelete('<%= category.id %>', '<%= category.name %>')">Delete</a></td>
+                        </tr>
+                        <% })} %>
+            </tbody>
+        </table>
+
     </div>
 
     <a href="/categories/new">New Category</a>
