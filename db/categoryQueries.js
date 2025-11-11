@@ -2,7 +2,9 @@ const pool = require("./pool");
 
 async function getCategories(){
     try{
-    const { rows } = await pool.query("SELECT * FROM categories;");
+    const { rows } = await pool.query(
+        `SELECT * FROM categories
+         ORDER BY id;`);
         if(rows.length === 0){
         return null;
     }
@@ -30,47 +32,6 @@ async function getCategory(categoryId){
     }
 }
 
-// pulls items along with category and category name
-async function getItemsByCategory(categoryId){
-    try{
-        const { rows } = await pool.query(
-        `SELECT i.*, b.name AS category_name, c.name AS category_name
-        FROM items i
-        LEFT JOIN categorys b ON i.category_id = b.id
-        JOIN categories c ON i.category_id = c.id
-        WHERE c.id = $1;`,
-        [categoryId]
-    );
-        if (rows.length === 0){
-            return null;
-        }
-        return rows;
-    } catch (error){
-        console.error("Database error:", error);
-        return null;
-    }
-}
-
-async function getcategorysByCategory(categoryId){
-    try{
-        const { rows } = await pool.query(
-            `SELECT b.*, c.name AS category_name
-            FROM categorys b
-            JOIN category_categories bc ON b.id = bc.category_id
-            JOIN categories c ON bc.category_id = c.id
-            WHERE c.id = $1;
-            `,[categoryId]
-        );
-        if (rows.length === 0){
-        return null;
-        }
-        return rows;
-    } catch (error){
-        console.error("Database error:", error);
-        return null;
-    }
-
-}
 
 async function createCategory(category){
     const result =  await pool.query(

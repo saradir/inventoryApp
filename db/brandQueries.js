@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 async function getBrands(){
     try{
-        const { rows } = await pool.query(`SELECT * FROM brands;`);
+        const { rows } = await pool.query(`SELECT * FROM brands ORDER BY id;`);
         if(rows.length === 0) return null;
         return rows;
     } catch (error) {

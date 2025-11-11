@@ -84,21 +84,14 @@ async function createBrand(brand){
 
 
 async function getItems(){
- /*   try{
-        const { rows } = await pool.query(`SELECT * FROM items;`);
-        if (rows.length === 0) return null'
-        return rows
-    } catch (error){
-        console.log("Database Error:", error);
-        return null;
-    }
-}*/
+
     try{
         const { rows } = await pool.query(
         `SELECT i.*, b.name AS brand_name, c.name AS category_name
         FROM items i
         LEFT JOIN brands b ON i.brand_id = b.id
-        JOIN categories c ON i.category_id = c.id;`
+        JOIN categories c ON i.category_id = c.id
+        ORDER BY id;`
         );
         if (rows.length === 0){
             return null;

@@ -6,7 +6,8 @@ async function getItems(){
         `SELECT i.*, b.name AS brand_name, c.name AS category_name
         FROM items i
         LEFT JOIN brands b ON i.brand_id = b.id
-        LEFT JOIN categories c ON i.category_id = c.id;`
+        LEFT JOIN categories c ON i.category_id = c.id
+        ORDER BY id;`
         );
         if (rows.length === 0){
             return null;

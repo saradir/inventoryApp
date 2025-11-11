@@ -37,7 +37,7 @@ async function createItemPOST(req, res){
 async function getItem(req,res){
     const itemId = req.params.id;
     const result = await db.getItem(itemId);
-    if (result.rowCount <= 0){
+    if (!result){
         throw new Error('No Item Found');
     }
     res.render('itemPage', {
